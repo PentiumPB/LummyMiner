@@ -12,7 +12,7 @@ import org.powerbot.game.api.methods.input.Mouse;
  */
 public class GUI extends JFrame {
 	
-    private boolean isRunning = true;
+    boolean isRunning = true;
 
 	public GUI() {
 		initComponents();
@@ -25,7 +25,7 @@ public class GUI extends JFrame {
 			settings.oreToMine = settings.COPPER_ID;
 			settings.oreIs = settings.COPPER_ORE;
 			}else if (radioButton3.isSelected()) {
-			settings.oreToMine = settings.IRON_ID;
+			settings.iron = true;
 			settings.oreIs = settings.IRON_ORE;
 			} else if (radioButton4.isSelected()) {
 			
@@ -38,7 +38,6 @@ public class GUI extends JFrame {
 			} else if (radioButton8.isSelected()) {
 		
 			} if (radioButton9.isSelected()) { // Start Locations
-				settings.isLumbridge = true;
 			}  else if (radioButton10.isSelected()) {
 				
 			} else if (radioButton11.isSelected()) {
@@ -51,12 +50,14 @@ public class GUI extends JFrame {
 				//end of Locations
 			} if (radioButton15.isSelected()) { // Start of Powermine, smith, bank
 			settings.powerMine = true;
+			settings.isBanking = false;
 			slider2.setValue(40);
-			slider2.setEnabled(false);
 			} else if (radioButton16.isSelected()) {
-				
+				settings.isBanking = false;
+				settings.powerMine = false;
 			}  else if (radioButton17.isSelected()) {// end of Powermine, smith, bank
-				
+				settings.isBanking = true;
+				settings.powerMine = false;
 			} 
 	        int value1 = (int)slider1.getValue(); // Gets slider1 value to use selection statement
 	        System.out.println(value1);
@@ -115,6 +116,12 @@ settings.endDrop = 1500;
 	private void radioButton5ActionPerformed(ActionEvent e) {
 		// TODO add your code here
 	}
+	private void radioButton9ActionPerformed(ActionEvent e) {
+		// TODO add your code here
+	}
+	private void radioButton100ActionPerformed(ActionEvent e) {
+		// TODO add your code here
+	}
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -171,10 +178,9 @@ settings.endDrop = 1500;
 			//======== panel1 ========
 			{
 
-				// JFormDesigner evaluation mark
 				panel1.setBorder(new javax.swing.border.CompoundBorder(
 					new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-						"", javax.swing.border.TitledBorder.CENTER,
+						"PowerBot", javax.swing.border.TitledBorder.CENTER,
 						javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
 						java.awt.Color.blue), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
@@ -194,7 +200,7 @@ settings.endDrop = 1500;
 					public void actionPerformed(ActionEvent e) {
 						radioButton1ActionPerformed(e);
 						radioButton9.setVisible(true);
-						radioButton10.setVisible(false);
+						radioButton10.setVisible(true);
 						radioButton11.setVisible(false);
 						radioButton12.setVisible(false);
 						radioButton13.setVisible(false);
@@ -209,7 +215,7 @@ settings.endDrop = 1500;
 					public void actionPerformed(ActionEvent e) {
 						radioButton2ActionPerformed(e);
 						radioButton9.setVisible(true);
-						radioButton10.setVisible(false);
+						radioButton10.setVisible(true);
 						radioButton11.setVisible(false);
 						radioButton12.setVisible(false);
 						radioButton13.setVisible(false);
@@ -223,8 +229,8 @@ settings.endDrop = 1500;
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						radioButton3ActionPerformed(e);
-						radioButton9.setVisible(false);
-						radioButton10.setVisible(true);
+						radioButton9.setVisible(true);
+						radioButton10.setEnabled(false);
 						radioButton11.setVisible(false);
 						radioButton12.setVisible(false);
 						radioButton13.setVisible(false);
@@ -234,6 +240,7 @@ settings.endDrop = 1500;
 
 				//---- radioButton4 ----
 				radioButton4.setText("Coal");
+				radioButton4.setEnabled(false);
 				radioButton4.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -249,6 +256,7 @@ settings.endDrop = 1500;
 
 				//---- radioButton5 ----
 				radioButton5.setText("Steel - Iron, Coal");
+				radioButton5.setEnabled(false);
 				radioButton5.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -333,10 +341,26 @@ settings.endDrop = 1500;
 			{
 
 				//---- radioButton9 ----
-				radioButton9.setText("Lumbridge");
+				radioButton9.setText("Anywhere");
+				radioButton9.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						radioButton17.setEnabled(false);
+						radioButton15.isSelected();
+						radioButton9ActionPerformed(e);
+						
+					}
+				});
 
 				//---- radioButton10 ----
-				radioButton10.setText("text");
+				radioButton10.setText("Lumbridge");
+				radioButton10.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						radioButton17.setEnabled(true);
+						radioButton10ActionPerformed(e);
+					}
+				});
 
 				//---- radioButton11 ----
 				radioButton11.setText("text");
@@ -620,6 +644,11 @@ settings.endDrop = 1500;
 		buttonGroup3.add(radioButton16);
 		buttonGroup3.add(radioButton17);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
+	}
+
+	protected void radioButton10ActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

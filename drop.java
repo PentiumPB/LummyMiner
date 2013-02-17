@@ -1,37 +1,29 @@
 import java.awt.event.KeyEvent;
 
 import org.powerbot.core.script.job.Task;
-import org.powerbot.game.api.methods.Widgets;
+import org.powerbot.core.script.job.state.Node;
 import org.powerbot.game.api.methods.input.Keyboard;
 import org.powerbot.game.api.methods.tab.Inventory;
 
 
-public class drop {
+public class drop extends Node {
 
+	@Override
+	public boolean activate() {
+		if(settings.powerMine = true && (Inventory.isFull())){
+			return true;
+		}
+		return false;
+		
+	}
 
-    static void dropOre () { 
-    	while (Inventory.getItem(settings.oreIs) != null){  
-    		if (Widgets.canContinue()) {
-        		Keyboard.sendKey((char) KeyEvent.VK_SPACE);
-    			Widgets.clickContinue();
-    		}
-        	if (ActionBar.isOpen()) {
-        		Keyboard.sendKey((char) KeyEvent.VK_1);
-        		Task.sleep(settings.startDrop, settings.endDrop);
-        	} else {
-        		ActionBar.open();
-        }
-    	}
-		Task.sleep(300, 400);
-    }
-    
-    static void dropGems () { 
-    	while (Inventory.getItem(mine.gems) != null){   
-                Inventory.getItem(mine.gems).getWidgetChild().interact("Drop"); 
-        		Task.sleep(100, 200);
-    	}
-		Task.sleep(300, 400);
-    }
-    
+	@Override
+	public void execute() {
+		settings.isDropping = true;
+		while (Inventory.getItem(settings.oreIs) != null){  
+		Keyboard.sendKey((char) KeyEvent.VK_1);
+		Task.sleep(settings.startDrop, settings.endDrop);
+		}
+	}
 	
 }
